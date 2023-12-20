@@ -107,7 +107,6 @@ function buildMenu (callback) {
   gui.add(parameters, 'speed', 					0.0, 15.0).name('Speed (deg/s)').onFinishChange(callback);
   gui.add(parameters, 'direction', 			[ 'left', 'right' ]).name('Direction').onFinishChange(callback);
   gui.add(display, 	  'distance', 			[ 50, 70, 100, 150, 300 ] ).name('Distance (cm)').onFinishChange(callback);
-  gui.add(parameters, 'brightness', 		0.0, 1.0).name('Brightness').onFinishChange(callback);  
   gui.add(parameters.sweep, 'enable').name('Sweep').onFinishChange(callback);
 
 
@@ -176,7 +175,7 @@ function buildMenu (callback) {
   display_options.add(display.resolution, 			'width', 	screen_width).name('Width (px)').onFinishChange(callback);
   display_options.add(display.resolution, 			'height', screen_height).name('Height (px)').onFinishChange(callback);
   display_options.add(display, 'devicepixelratio', 		screen_dpr).name('Device Pixel Ratio').onFinishChange(callback);  
-  display_options.close();
+  display_options.open();
 
 
 }
