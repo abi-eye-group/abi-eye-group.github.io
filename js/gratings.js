@@ -27,8 +27,7 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 let parameters, last_parameters;
 
-function defaultParameters () {
-
+function defaultStimulusParameters () {
 
 	parameters = {  logMAR        : 1.0,
 										brightness 		: 1.0,					
@@ -62,7 +61,7 @@ function defaultParameters () {
 
 };
 
-defaultParameters ();
+defaultStimulusParameters ();
 
 
 
