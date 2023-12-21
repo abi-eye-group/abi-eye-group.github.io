@@ -27,8 +27,6 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 var parameters, last_parameters;
 
-function defaultStimulusParameters () {
-
 	parameters = {  logMAR        : 1.0,
 										brightness 		: 1.0,					
 										speed 				: 2.5,						
@@ -59,9 +57,6 @@ function defaultStimulusParameters () {
 
 	last_parameters = JSON.parse(JSON.stringify(parameters));
 
-};
-
-defaultStimulusParameters ();
 
 
 
