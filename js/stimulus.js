@@ -24,14 +24,14 @@ let display = { name: "Macbook Pro Laptop (15-inch)",
                	 			  height: 1050 }};
 */
 
-let display = { name: "Dell E248WFP (24-inch)",
+let display = { name: "Unknown",
                 distance: 100,
                 dimension: { width:  32.50, 
                              height: 21.00, 
                              depth:  1.00  },
-                resolution: { width:  1900,
-                              height: 1200 },
-                devicepixelratio: 1};
+                resolution: { width:  screen.width,
+                              height: screen.height },
+                devicePixelRatio: window.devicePixelRatio};
 
 
 var elem = document.documentElement;
@@ -48,10 +48,12 @@ FUNCTIONS
 /* View in fullscreen */
 
 
+// convert angular size to pixels 
+
 function angle2pix(display, ang) {
-pixSize = display.dimension.width/display.resolution.width;  // pixel size in cm (cm/px)
-sz = 2.0*display.distance*Math.tan(Math.PI*ang/360);   		 // element size in cm 
-pix = Math.round(sz/pixSize);   						     // value in pixels 
+pixSize = display.dimension.width/(display.resolution.width*display.devicePixelRatio);  // pixel size in cm (cm/px)
+sz = 2.0*display.distance*Math.tan(Math.PI*ang/360);   		                              // element size in cm 
+pix = Math.round(sz/pixSize);   						                                            // value in pixels 
 return pix; 
 }
 

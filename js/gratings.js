@@ -6,14 +6,25 @@ This will allow sinusoids, stripes, disks
  ----------------------------------------------------------------- */
 
 
-// iniitalize global parameters 
+/* ------------------------------------------------------------------------------
+
+GLOBALS 
+
+--------------------------------------------------------------------------------- */
+
 
 let FizzyText, gui;
 let camera, scene, geometry, material, renderer;
 let requestId;
 var uniforms, stamp;
 
-// Default menu parameters 
+
+/* ------------------------------------------------------------------------------
+
+STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
+
+--------------------------------------------------------------------------------- */
+
 
 let parameters = {  logMAR        : 1.0,
 										brightness 		: 1.0,					
@@ -35,43 +46,16 @@ let parameters = {  logMAR        : 1.0,
 										background_intensity 	: 0.5,				
 										field_spacing 				: 2.0 },
 					 sweep: {  enable								: true,
-					 					 step_rate						: 0.05,					 
-					 					 step_duration				: 2.0 }								 
+					 					 step_duration				: 0.5,
+					 					 step_size						: 0.1,					 					 
+					 					 logMAR               : 1.0,		// internal logMAR
+					 					 direction						: -1			// internal direction 
+					 				 }								 
 					};
 
 
 let last_parameters = JSON.parse(JSON.stringify(parameters));
 
-
-/* ------------------------------------------------------------------------------
-
-CONVERSION  
-
---------------------------------------------------------------------------------- */
-
-/*
-
-let display = { name: "Alienware Laptop (15-inch)",
-                distance: 100,
-                dimension: { width:  34.93, 
-                            height: 24.07, 
-                            depth:  1.55  },
-                resolution: { width:  1920,
-               	 			  height: 1080 }};
-
-
-function angle2pix(display, ang) {
-pixSize = display.dimension.width/display.resolution.width;  // pixel size in cm (cm/px)
-sz = 2.0*display.distance*Math.tan(Math.PI*ang/360);   		 // element size in cm 
-pix = Math.round(sz/pixSize);   						     // value in pixels 
-return pix; 
-}
-
-function logMAR2deg(val) {
-return Math.pow(10, val) / 60;  							// logMAR in degrees
-}
-
-*/
 
 /* ------------------------------------------------------------------------------
 
@@ -103,7 +87,7 @@ function buildMenu (callback) {
   gui   = new dat.GUI({ width: 350} );
 
   gui.add(parameters, 'stimulus_type', 	[ 'sinusoids', 'bars', 'disks' ] ).name('Stimulus').onFinishChange(callback);
-  gui.add(parameters, 'logMAR',     	  0.0, 2.0, 0.1).name('logMAR').onFinishChange(callback);
+  gui.add(parameters, 'logMAR',     	  0.0, 2.0, 0.1).name('logMAR').onFinishChange(callback).listen();
   gui.add(parameters, 'speed', 					0.0, 15.0).name('Speed (deg/s)').onFinishChange(callback);
   gui.add(parameters, 'direction', 			[ 'left', 'right' ]).name('Direction').onFinishChange(callback);
   gui.add(display, 	  'distance', 			[ 50, 70, 100, 150, 300 ] ).name('Distance (cm)').onFinishChange(callback);
@@ -116,7 +100,7 @@ function buildMenu (callback) {
 
 			let sweep_options = gui.addFolder('Sweep Options');
   		sweep_options.add(parameters.sweep, 'step_duration', 0.0, 8.0, 0.5).name('Step Duration (s)').onFinishChange(callback);
-  		sweep_options.add(parameters.sweep, 'step_rate', 0.0, 1.0, 0.01).name('Step Rate (logMAR/s)').onFinishChange(callback);  
+  		//sweep_options.add(parameters.sweep, 'step_rate', 0.0, 1.0, 0.01).name('Step Rate (logMAR/s)').onFinishChange(callback);  
   		sweep_options.open ();
 	}
 
@@ -166,7 +150,6 @@ function buildMenu (callback) {
 
   let screen_width  = screen.width;
   let screen_height = screen.height;
-  let screen_dpr    = window.devicePixelRatio;
 
 
   var display_options = gui.addFolder('Display Options');
@@ -174,7 +157,7 @@ function buildMenu (callback) {
   display_options.add(display.dimension,  			'height', 32.50).name('Height (cm)').onFinishChange(callback);
   display_options.add(display.resolution, 			'width', 	screen_width).name('Width (px)').onFinishChange(callback);
   display_options.add(display.resolution, 			'height', screen_height).name('Height (px)').onFinishChange(callback);
-  display_options.add(display, 'devicepixelratio', 		screen_dpr).name('Device Pixel Ratio').onFinishChange(callback);  
+  display_options.add(display, 'devicePixelRatio',  1.0, 5.0).name('Device Pixel Ratio').onFinishChange(callback);  
   display_options.open();
 
 
@@ -187,7 +170,7 @@ function buildMenu (callback) {
 
 
 
-function initializeStimulus () {
+async function initializeStimulus () {
 
 	log ("initialize stimulus");
 
@@ -204,6 +187,8 @@ function initializeStimulus () {
 
 		case "disks":
 
+			// initial parameters  
+
 			let k   = parameters.ratio[parameters.disks.ratio];
 			let c   = angle2pix(display, logMAR2deg (parameters.logMAR)); 
 			let s   = c * k;
@@ -211,24 +196,23 @@ function initializeStimulus () {
 			v   = -direction * angle2pix(display, parameters.speed);   // px/sec 
 
 
-			//log (JSON.stringify(parameters, null, 4));
+			// setup the uniforms 
 
-			/* DISKS UNIFORM */
 			uniforms = {
-				"CentralRadius": 		{ value: c },
+				"CentralRadius": 			{ value: c },
 				"PerimeterRadius": 		{ value: s },
 				"CentralIntensity": 	{ value: parameters.disks.central_intensity },
-				"PerimeterIntensity": 	{ value: parameters.disks.surround_intensity },
-				"FieldSpacing": 		{ value: fsp },
-				"Brightness": 			{ value: parameters.brightness },	
-				"FieldDisplacementX": 	{ value: 0.0 },
-				"Velocity": 			{ value: v },									
-					"iTime": 			{ value: 0.0 }						
+				"PerimeterIntensity": { value: parameters.disks.surround_intensity },
+				"FieldSpacing": 			{ value: fsp },
+				"Brightness": 				{ value: parameters.brightness },	
+				"FieldDisplacementX": { value: 0.0 },
+				"Velocity": 					{ value: v },									
+					"iTime": 						{ value: 0.0 }						
 			};
 
-			// /log (JSON.stringify(uniforms, null, 4));
 
-			shader_frag = getDisksShader ();
+			//shader_frag = getDisksShader ();
+			shader_frag = await getShader ('shader/disks_shader.frag');
 			break;
 
 		case "bars":
@@ -249,12 +233,16 @@ function initializeStimulus () {
 			};
 
 
-			shader_frag = getSquareShader ();
+			// shader_frag = getSquareShader ();
+			shader_frag = await getShader ('shader/square_shader.frag');
 			break;
+
+
+ 	  // setup sinusoidal 
 
 		case "sinusoids":
 
-			lambda = 2*logMAR2deg(parameters.logMAR); 									// logMAR specification 
+			lambda 		 = 2*logMAR2deg(parameters.logMAR); 									// logMAR specification 
 			v 		   	 = -direction * angle2pix(display, parameters.speed); // deg/sec -> pixels/sec 
 			var f      = 1/angle2pix(display, lambda);  					  				// cyc/px 
 
@@ -267,18 +255,16 @@ function initializeStimulus () {
 					"iTime": 			{ value: 0.0 }						
 			};
 
-			shader_frag = getSinusoidalShader ();
-			break;
+			//shader_frag = getSinusoidalShader ();
+			shader_frag = await getShader ('shader/sinusoidal_shader.frag');
+			break; }
 
 
-	}
-
-
+	console.log (`Loaded shader for ${parameters.stimulus_type}`);
+	console.log ('Starting THREE.js');
 	camera 		= new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );				
 	scene 		= new THREE.Scene();
 	geometry 	= new THREE.PlaneBufferGeometry( 2, 2 );
-
-
 	material = new THREE.ShaderMaterial( {
 		uniforms: uniforms,
 		fragmentShader: shader_frag  
@@ -288,24 +274,23 @@ function initializeStimulus () {
 	scene.add( mesh );
 
 	renderer = new THREE.WebGLRenderer();
-	renderer.setPixelRatio( window.devicePixelRatio );
-
+	renderer.setPixelRatio( display.devicePixelRatio );
 	experiment.appendChild( renderer.domElement );
-
 	onWindowResize();
 	window.addEventListener( 'resize', onWindowResize, false );
 
 }
 
-//
+
+
+
+//  Animation loop 
 
 var count = 0;
 var dt = 0;
 var last = (new Date()).getTime();
 var direction = 0.0;
 
-// var stamp = 0;
-// var fieldShiftDX = 0;
 
 function animate() {
 
@@ -380,17 +365,26 @@ function animate() {
 
 
 
-
 /* -----------------------------------------------------------------------------------------------------------------------------------
 
-EMPTY SHADER 
+Shaders 
 
 -------------------------------------------------------------------------------------------------------------------------------------- */
+
+// read the shader from a local file 
+
+async function getShader (file) {
+
+  let response = await fetch(file);
+	let data = await response.text();
+  return data;
+}
+
 
 function getEmptyShader () {
 
   let shader_frag = 
-    "const float Pi = 3.1415926;"+
+  "const float Pi = 3.1415926;"+
 
 	"uniform float CentralRadius;"+
 	"uniform float PerimeterRadius;"+
