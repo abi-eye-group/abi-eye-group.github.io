@@ -25,7 +25,7 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 --------------------------------------------------------------------------------- */
 
-let parameters, last_parameters;
+var parameters, last_parameters;
 
 function defaultStimulusParameters () {
 
