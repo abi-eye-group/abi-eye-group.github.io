@@ -12,7 +12,7 @@ You can link to the web-application [here](https://duckduckgo.com)
 * Motion artefacts are typical on LED monitors. It may be useful to consider [blur reduction](https://blurbusters.com)
 	* We have routinely used nVidia's Ultra Low Motion Blur (ULMB) technology. It works. We have not tried [ULMB2](https://www.nvidia.com/en-us/geforce/news/g-sync-ultra-low-motion-blur-2/).
     * A high refresh rate/OLED Samsung S8 Ultra Tablet gives artefact free. 
-* To scale the system correctly for you set-up you will need to fill in "Display Options" in the controller. You could try [this](https://screenresolutiontest.com).
+* To scale the system correctly for you set-up you will need to fill in "Display Options" in the controller. You could try [this](https://screenresolutiontest.com)
 
 
 
