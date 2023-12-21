@@ -25,9 +25,8 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 --------------------------------------------------------------------------------- */
 
-var parameters, last_parameters;
 
-	parameters = {  logMAR        : 1.0,
+var	parameters = {  logMAR        : 1.0,
 										brightness 		: 1.0,					
 										speed 				: 2.5,						
 										direction 		: "left", 																				
@@ -55,7 +54,7 @@ var parameters, last_parameters;
 					};
 
 
-	last_parameters = JSON.parse(JSON.stringify(parameters));
+var	last_parameters = JSON.parse(JSON.stringify(parameters));
 
 
 
