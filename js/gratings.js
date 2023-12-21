@@ -28,7 +28,7 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 let parameters = {  logMAR        : 1.0,
 										brightness 		: 1.0,					
-										speed 				: 5.0,						
+										speed 				: 2.5,						
 										direction 		: "left", 																				
 										stimulus_type : "disks", 
 
@@ -81,8 +81,6 @@ function buildMenu (callback) {
   
   }
 
-
-
   log (`build the menu`);
   gui   = new dat.GUI({ width: 350} );
 
@@ -91,18 +89,23 @@ function buildMenu (callback) {
   gui.add(parameters, 'speed', 					0.0, 15.0).name('Speed (deg/s)').onFinishChange(callback);
   gui.add(parameters, 'direction', 			[ 'left', 'right' ]).name('Direction').onFinishChange(callback);
   gui.add(display, 	  'distance', 			[ 50, 70, 100, 150, 300 ] ).name('Distance (cm)').onFinishChange(callback);
-  gui.add(parameters.sweep, 'enable').name('Sweep').onFinishChange(callback);
 
 
-	// show these options if sweep tick-box is enabled 
+	// only allow the sweep option if stimulus if the stimulus is "disks"
 
-	if (parameters.sweep.enable) {
+	if (parameters.stimulus_type == "disks") {
 
-			let sweep_options = gui.addFolder('Sweep Options');
-  		sweep_options.add(parameters.sweep, 'step_duration', 0.0, 8.0, 0.5).name('Step Duration (s)').onFinishChange(callback);
-  		//sweep_options.add(parameters.sweep, 'step_rate', 0.0, 1.0, 0.01).name('Step Rate (logMAR/s)').onFinishChange(callback);  
-  		sweep_options.open ();
-	}
+		  gui.add(parameters.sweep, 'enable').name('Sweep').onFinishChange(callback);
+			if (parameters.sweep.enable) {
+
+					let sweep_options = gui.addFolder('Sweep Options');
+		  		sweep_options.add(parameters.sweep, 'step_duration', 0.0, 8.0, 0.5).name('Step Duration (s)').onFinishChange(callback);
+		  		//sweep_options.add(parameters.sweep, 'step_rate', 0.0, 1.0, 0.01).name('Step Rate (logMAR/s)').onFinishChange(callback);  
+		  		sweep_options.open ();
+			}
+
+	} 
+
 
 
   // set-up stimulus options 
@@ -211,8 +214,12 @@ async function initializeStimulus () {
 			};
 
 
-			//shader_frag = getDisksShader ();
+			// shader_frag = getDisksShader ();
 			shader_frag = await getShader ('shader/disks_shader.frag');
+			
+			//console.log ('Shader returned');
+			//console.log (shader_frag);
+
 			break;
 
 		case "bars":
@@ -233,7 +240,7 @@ async function initializeStimulus () {
 			};
 
 
-			// shader_frag = getSquareShader ();
+			//shader_frag = getSquareShader ();
 			shader_frag = await getShader ('shader/square_shader.frag');
 			break;
 
@@ -260,8 +267,10 @@ async function initializeStimulus () {
 			break; }
 
 
-	console.log (`Loaded shader for ${parameters.stimulus_type}`);
-	console.log ('Starting THREE.js');
+	// loading shader 
+
+	//console.log (`Loaded shader for ${parameters.stimulus_type}`);
+	//console.log ('Starting THREE.js');
 	camera 		= new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );				
 	scene 		= new THREE.Scene();
 	geometry 	= new THREE.PlaneBufferGeometry( 2, 2 );
@@ -272,6 +281,8 @@ async function initializeStimulus () {
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
+
+	//console.log (display);
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio( display.devicePixelRatio );

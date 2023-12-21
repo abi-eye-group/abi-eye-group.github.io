@@ -101,13 +101,13 @@ $(document).ready( function () {
             // Information
             if (prelim < 0.0) {
 
-                  console.log (`direction change detected. ${parameters.logMAR}`);
+                  //console.log (`direction change detected. ${parameters.logMAR}`);
                   parameters.logMAR = 0.0; 
                   parameters.sweep.direction = -parameters.sweep.direction; 
 
               } else if (prelim > parameters.sweep.logMAR) {
 
-                  console.log (`direction change detected. ${parameters.logMAR}`);
+                  //console.log (`direction change detected. ${parameters.logMAR}`);
                   parameters.logMAR = parameters.sweep.logMAR; 
                   parameters.sweep.direction = -parameters.sweep.direction; 
 
@@ -129,60 +129,70 @@ $(document).ready( function () {
     }
 
 
-    startFullScreenHandler (async function () {  /* enter fullscreen */
 
-                  // this should be called when menu values change 
+    // this function is called to process dat.GUI changes 
 
-					        async function processCallback (data) {  
+    async function processCallback (data) {  
 
-                    // the sweep option was toggled 
+      // the sweep option was toggled 
+     if (parameters.sweep.enable !== last_parameters.sweep.enable) {
+        //console.log (`Toggled sweep to ${parameters.sweep.enable}`);                      
+        if (parameters.sweep.enable) {
+          startSweeping ();
+        } else {
+          clearTimeout (sweepTimeoutID);
+          parameters.logMAR = parameters.sweep.logMAR;
+        }
+      }
 
-                   if (parameters.sweep.enable !== last_parameters.sweep.enable) {
+      // stimulus type was changed 
 
-                      console.log (`Toggled sweep to ${parameters.sweep.enable}`);                      
-                      if (parameters.sweep.enable) {
-                        startSweeping ();
-                      } else {
-                        clearTimeout (sweepTimeoutID);
-                        parameters.logMAR = parameters.sweep.logMAR;
-                      }
-                    }
-
-                    // stimulus type was changed 
-
-					        	if (parameters.stimulus_type !== last_parameters.stimulus_type) {
-
-					        		log (`changed stimulus : ${last_parameters.stimulus_type} to ${parameters.stimulus_type}`);
-                      buildMenu (processCallback); /* completely rebuild the menu */
-                                            
-                      try { 
-                          stopStimulus ();
-                          await initializeStimulus ();
-                          startStimulus ();
-                      } catch (error) {
-                          console.error(error);
-                      }
-					        	}
-
-                    // save all the last parameters to enable checking of change of state!
-
-					        	last_parameters=JSON.parse(JSON.stringify(parameters));
-					        }
+      if (parameters.stimulus_type !== last_parameters.stimulus_type) {
 
 
-					    
-                  // first time 
+        // Restart the menu 
+
+        //console.log ('Rebuilding menu');
+
+        log (`changed stimulus : ${last_parameters.stimulus_type} to ${parameters.stimulus_type}`);
+        buildMenu (processCallback); /* completely rebuild the menu */
+                              
+        try { 
+            stopStimulus ();
+            await initializeStimulus ();
+            startStimulus ();
+        } catch (error) {
+            console.error(error);
+        }
+      }
+
+      // save all the last parameters to enable checking of change of state!
+
+      last_parameters=JSON.parse(JSON.stringify(parameters));
+    }
+
+
+
+
+
+    startFullScreenHandler (
+
+      // THis function is run on start of Fullscreen 
+
+      async function () {  
 
                   try {
 
-                      log("entering fullscreen for first time."); 
+                      //console.log ('Building menu');
+
                       buildMenu (processCallback);              
                       await initializeStimulus ();
-                      console.log ('Initialized.');
+                      //console.log ('Initialized.');
                       startStimulus ();
-                      console.log ('Stimulus started.');
+                      //console.log ('Stimulus started.');
 
-                      if (parameters.sweep.enable) {
+
+                      if ((parameters.sweep.enable) && (parameters.stimulus_type == "disks")) {
                         startSweeping ();
                       }
 
@@ -197,7 +207,9 @@ $(document).ready( function () {
 
               // Exit Fullscreen 
 
-              function () { /* exit fullscreen */
+              function () { 
+
+                  // stop stimulus & kill everything
 
                   stopStimulus ();
                   destroyMenu ();

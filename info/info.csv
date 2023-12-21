@@ -6,7 +6,7 @@ TRUE,FALSE,FALSE,0,Speed,5.0,deg/sec,Horizontal drift speed for stimulus ,
 TRUE,FALSE,FALSE,0,Direction,left,,Horizontal drift direction. ,Distance from display to observer.
 TRUE,FALSE,FALSE,0,Distance,100,cm,Distance of pbserver from display,Engage sweeping
 TRUE,FALSE,FALSE,0,Sweep,TRUE,,sweeping enabled. {[true]|false},
-FALSE,TRUE,FALSE,1,Sweep ,,,,
+FALSE,TRUE,FALSE,1,Sweep ,,,"Option is available for ""disks"" stimulus only. Overrides  the ""logMAR"" controller when enabled.",
 TRUE,FALSE,FALSE,0,Step Duration,1.0,sec,Time spent per logMAR level,
 TRUE,FALSE,FALSE,0,Step Size,0.1,logMAR,Step Size,
 FALSE,TRUE,FALSE,1,Stimulus Specific Options,,,,

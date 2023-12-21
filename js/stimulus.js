@@ -95,7 +95,12 @@ function closeFullscreen() {
 
 /* StartFullScreenHandler : activated when started or finished  */
 
+
+var isFullScreen = false;
+
+
 function startFullScreenHandler (start, finish) {
+
 
 function check () {
 
@@ -106,13 +111,23 @@ function check () {
       document.msFullscreenElement        /* IE/Edge syntax */
   ) {
 
-    $("html").css("overflow", "hidden");
-    start ();
+    // This ensures that the screen handler cant be called twice!
+
+    if (!isFullScreen) {
+        isFullScreen = true;
+        //console.log ('Entered fullscreen mode.');
+        $("html").css("overflow", "hidden");
+        start ();
+    }      
+
 
   } else {
 
+    //console.log ('Exited fullscreen mode.');
     $("html").css("overflow", "auto");
     finish ();
+    isFullScreen = false;
+
   }
 
 }
