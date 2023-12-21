@@ -1,0 +1,12 @@
+
+
+while getopts i: flag
+do
+    case "${flag}" in
+        i) inputfile=${OPTARG};;
+    esac
+done
+echo "Inputfile: $inputfile";
+
+
+cat ${inputfile} | python -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))'
