@@ -25,36 +25,41 @@ STARTUP PARAMETERS FOR DAT.GUI CONTROLLER
 
 --------------------------------------------------------------------------------- */
 
-
-let parameters = {  logMAR        : 1.0,
-										brightness 		: 1.0,					
-										speed 				: 2.5,						
-										direction 		: "left", 																				
-										stimulus_type : "disks", 
+let parameters, last_parameters;
 
 
-					ratio: { 	"1:2"   : 2.0, 
-							 			"1:1.5" : 1.5 },
+function defaultParameters () {
 
-					bars: { 			frequency 		: 1.0,
-												contrast  		: 1.0 }, 
-					sinusoids: { 	frequency 		: 1.0,
-												contrast  		: 1.0 }, 
-					disks: {	ratio    							: "1:2",
-										central_intensity  		: 0.75, 
-										surround_intensity 		: 0.45,
-										background_intensity 	: 0.5,				
-										field_spacing 				: 2.0 },
-					 sweep: {  enable								: true,
-					 					 step_duration				: 0.5,
-					 					 step_size						: 0.1,					 					 
-					 					 logMAR               : 1.0,		// internal logMAR
-					 					 direction						: -1			// internal direction 
-					 				 }								 
-					};
+	let parameters = {  logMAR        : 1.0,
+											brightness 		: 1.0,					
+											speed 				: 2.5,						
+											direction 		: "left", 																				
+											stimulus_type : "disks", 
 
 
-let last_parameters = JSON.parse(JSON.stringify(parameters));
+						ratio: { 	"1:2"   : 2.0, 
+								 			"1:1.5" : 1.5 },
+
+						bars: { 			frequency 		: 1.0,
+													contrast  		: 1.0 }, 
+						sinusoids: { 	frequency 		: 1.0,
+													contrast  		: 1.0 }, 
+						disks: {	ratio    							: "1:2",
+											central_intensity  		: 0.75, 
+											surround_intensity 		: 0.45,
+											background_intensity 	: 0.5,				
+											field_spacing 				: 2.0 },
+						 sweep: {  enable								: true,
+						 					 step_duration				: 0.5,
+						 					 step_size						: 0.1,					 					 
+						 					 logMAR               : 1.0,		// internal logMAR
+						 					 direction						: -1			// internal direction 
+						 				 }								 
+						};
+
+	last_parameters = JSON.parse(JSON.stringify(parameters));
+
+};
 
 
 /* ------------------------------------------------------------------------------

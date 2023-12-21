@@ -209,11 +209,12 @@ $(document).ready( function () {
 
               function () { 
 
-                  // stop stimulus & kill everything
+                  // stop stimulus & reset everything
 
                   stopStimulus ();
                   destroyMenu ();
                   clearTimeout (sweepTimeoutID);
+                  defaultParameters ();
 
                   $("#start-button").show ();
 
