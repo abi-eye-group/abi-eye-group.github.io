@@ -95,6 +95,7 @@ function buildMenu (callback) {
 
 	// only allow the sweep option if stimulus if the stimulus is "disks"
 
+
 	if (parameters.stimulus_type == "disks") {
 
 		  gui.add(parameters.sweep, 'enable').name('Sweep').onFinishChange(callback);
@@ -102,12 +103,17 @@ function buildMenu (callback) {
 
 					let sweep_options = gui.addFolder('Sweep Options');
 		  		sweep_options.add(parameters.sweep, 'step_duration', 0.0, 8.0, 0.5).name('Step Duration (s)').onFinishChange(callback);
-		  		//sweep_options.add(parameters.sweep, 'step_rate', 0.0, 1.0, 0.01).name('Step Rate (logMAR/s)').onFinishChange(callback);  
 		  		sweep_options.open ();
 			}
 
 	} 
 
+
+
+	//gui.add(parameters.sweep, 'enable').name('Sweep').onFinishChange(callback);
+	//let sweep_options = gui.addFolder('Sweep Options');
+	//sweep_options.add(parameters.sweep, 'step_duration', 0.0, 8.0, 0.5).name('Step Duration (s)').onFinishChange(callback);
+	//sweep_options.open ();
 
 
   // set-up stimulus options 

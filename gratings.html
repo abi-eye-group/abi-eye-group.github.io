@@ -129,19 +129,29 @@ $(document).ready( function () {
     }
 
 
+    function stopSweeping () {
+
+          // reset sweeping
+          clearTimeout (sweepTimeoutID);
+          parameters.logMAR = parameters.sweep.logMAR;
+          parameters.sweep.enable = false;
+
+    }
+
 
     // this function is called to process dat.GUI changes 
 
     async function processCallback (data) {  
 
       // the sweep option was toggled 
-     if (parameters.sweep.enable !== last_parameters.sweep.enable) {
+      if (parameters.sweep.enable !== last_parameters.sweep.enable) {
+        
         //console.log (`Toggled sweep to ${parameters.sweep.enable}`);                      
-        if (parameters.sweep.enable) {
+        if ((parameters.sweep.enable) && (parameters.stimulus_type == "disks")) {
+          buildMenu (processCallback);
           startSweeping ();
         } else {
-          clearTimeout (sweepTimeoutID);
-          parameters.logMAR = parameters.sweep.logMAR;
+          stopSweeping ();
         }
       }
 
@@ -149,11 +159,11 @@ $(document).ready( function () {
 
       if (parameters.stimulus_type !== last_parameters.stimulus_type) {
 
+        // stop sweeping if its not disks   
+        if ((parameters.sweep.enable) && (parameters.stimulus_type != "disks"))
+            stopSweeping ();
 
         // Restart the menu 
-
-        //console.log ('Rebuilding menu');
-
         log (`changed stimulus : ${last_parameters.stimulus_type} to ${parameters.stimulus_type}`);
         buildMenu (processCallback); /* completely rebuild the menu */
                               
