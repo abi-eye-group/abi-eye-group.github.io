@@ -85,8 +85,8 @@ $(document).ready( function () {
 
     var sweepTimeoutID = 0;
 
+    
     /* Functions to run when fullscreen is entered or exited. */ 
-
 
     function startSweeping () {
 
@@ -139,50 +139,72 @@ $(document).ready( function () {
     }
 
 
-    // this function is called to process dat.GUI changes 
+    // This function is called to process dat.GUI  
 
     async function processCallback (data) {  
 
-      // the sweep option was toggled 
+
+      // Must be on DISKS for this to work
       if (parameters.sweep.enable !== last_parameters.sweep.enable) {
-        
-        //console.log (`Toggled sweep to ${parameters.sweep.enable}`);                      
-        if ((parameters.sweep.enable) && (parameters.stimulus_type == "disks")) {
+      
+          // sweep status changed 
+          if (parameters.sweep.enable)
+              startSweeping ();
+          else
+              stopSweeping ();
+
+          // rebuild the menu
           buildMenu (processCallback);
-          startSweeping ();
-        } else {
-          stopSweeping ();
-        }
+
+          last_parameters=JSON.parse(JSON.stringify(parameters));
+          return
       }
 
-      // stimulus type was changed 
 
+      // Stimulus type was changed 
       if (parameters.stimulus_type !== last_parameters.stimulus_type) {
 
-        // stop sweeping if its not disks   
-        if ((parameters.sweep.enable) && (parameters.stimulus_type != "disks"))
-            stopSweeping ();
+ 
+        // reload the stimulus 
+        stopStimulus ();  
+        await initializeStimulus ();
+        startStimulus ();  
+        console.log ('Parameter changed.');
 
-        // Restart the menu 
-        log (`changed stimulus : ${last_parameters.stimulus_type} to ${parameters.stimulus_type}`);
-        buildMenu (processCallback); /* completely rebuild the menu */
-                              
-        try { 
-            stopStimulus ();
-            await initializeStimulus ();
-            startStimulus ();
-        } catch (error) {
-            console.error(error);
-        }
-      }
+        if (parameters.stimulus_type == "disks") {
 
-      // save all the last parameters to enable checking of change of state!
+            // switched to DISKS [enable sweeping]  
+            if (parameters.sweep.enable)
+              startSweeping ();
+            else
+              stopSweeping ();
 
-      last_parameters=JSON.parse(JSON.stringify(parameters));
+         } else {
+
+            // switched to BARS/SINUSOID       
+            stopSweeping ();  // kill sweeping altogether 
+         }
+
+       }
+
+       buildMenu (processCallback); /* completely rebuild the menu */
+       last_parameters=JSON.parse(JSON.stringify(parameters));    
+       return
+
+
+
+
     }
 
 
-
+     // It was a standard parameter CHANGE   
+     // try { 
+     //     stopStimulus ();
+     //     await initializeStimulus ();
+     //     startStimulus ();
+     // } catch (error) {
+     //     console.error(error);
+     // }
 
 
     startFullScreenHandler (

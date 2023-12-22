@@ -244,7 +244,7 @@ async function initializeStimulus () {
 				"Frequency": 		{ value: f },
 				"Brightness": 	{ value: parameters.brightness },	
 				"Velocity": 		{ value: v },					
-					"iTime": 			{ value: 0.0 },						
+				"iTime": 				{ value: 0.0 },						
 			};
 
 
@@ -357,7 +357,6 @@ function animate() {
 			break;
 
 		case "bars" :
-
 		case "sinusoids" : 
 
 			// updating information 
@@ -365,6 +364,8 @@ function animate() {
 			let f 			= 1/angle2pix(display, lambda);  								// cyc/px 
 			v 					= -direction * parameters.speed * 1/lambda;   	// cyc/sec 
 			
+
+			console.log (parameters);
 
 			mesh.material.uniforms.Contrast.value 		= parameters.sinusoids.contrast;
 			mesh.material.uniforms.Frequency.value 		= f; 
