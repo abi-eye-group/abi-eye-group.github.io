@@ -210,14 +210,16 @@ $(document).ready( function () {
               function () { 
 
                   // stop stimulus & reset everything
+                  
 
                   stopStimulus ();
                   destroyMenu ();
                   clearTimeout (sweepTimeoutID);
+                
                   
-                  //defaultParameters ();
-
                   $("#start-button").show ();
+
+                  location.reload(true);
 
                });
 
