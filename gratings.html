@@ -211,6 +211,8 @@ $(document).ready( function () {
 
                   // stop stimulus & reset everything
                   
+                  console.log ('Stopping application.');
+
 
                   stopStimulus ();
                   destroyMenu ();
@@ -218,7 +220,6 @@ $(document).ready( function () {
                 
                   
                   $("#start-button").show ();
-
                   location.reload(true);
 
                });
