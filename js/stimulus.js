@@ -51,7 +51,7 @@ FUNCTIONS
 // convert angular size to pixels 
 
 function angle2pix(display, ang) {
-pixSize = display.dimension.width/(display.resolution.width*display.devicePixelRatio);  // pixel size in cm (cm/px)
+pixSize = display.dimension.width/(display.resolution.width*(display.devicePixelRatio || 1));  // pixel size in cm (cm/px)  (a display without a devicePixelRatio, as in preferential.js, counts as 1)
 sz = 2.0*display.distance*Math.tan(Math.PI*ang/360);   		                              // element size in cm 
 pix = Math.round(sz/pixSize);   						                                            // value in pixels 
 return pix; 
