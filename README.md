@@ -2,7 +2,7 @@
 
 
 This is an application for demonstrating stimulus patterns used to induce optokinetic nystagmus.
-You can link to the web-application [here](https://duckduckgo.com)
+You can link to the web-application [here](https://abi-eye-group.github.io/gratings.html). A moving Gabor patch demonstration is [here](https://abi-eye-group.github.io/preferential.html).
 
 ---
 
