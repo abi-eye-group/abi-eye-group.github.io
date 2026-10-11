@@ -54,6 +54,16 @@ var parameters = {  logMAR        : 1.0,
 					};
 
 
+/* A link can choose the demonstration:  gratings.html?stimulus=disks|bars|sinusoids  [&sweep=1|0]  (the index cards do) */
+
+(function () {
+	if (typeof URLSearchParams !== "function") { return; }
+	var q = new URLSearchParams(window.location.search);
+	var stimulus = q.get("stimulus");
+	if (stimulus === "disks" || stimulus === "bars" || stimulus === "sinusoids") { parameters.stimulus_type = stimulus; }
+	if (q.has("sweep")) { parameters.sweep.enable = (q.get("sweep") !== "0" && q.get("sweep") !== "false"); }
+})();
+
 var last_parameters = JSON.parse(JSON.stringify(parameters));
 
 

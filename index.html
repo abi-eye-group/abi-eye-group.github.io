@@ -108,28 +108,31 @@
 
   <main>
     
-    <!-- Cards for each demonstration --> 
+    <!-- Cards for each demonstration: each opens the demonstration with that stimulus chosen -->
 
     <div class="row row-cols-1 row-cols-md-4 mb-4 text-center">
       <div class="col">
         <div class="card mb-3 rounded-3 shadow-sm">
-          <div class="card-body">
-            <img class="col-sm-12" src="images/FigVanishing.png" alt="sans"/>
-          </div>
+          <a class="card-body text-decoration-none text-reset" href="gratings.html?stimulus=disks&amp;sweep=1" title="Disks, with the size sweep">
+            <img class="col-sm-12" src="images/FigVanishing.png" alt="Vanishing disks"/>
+            <div class="mt-2"><strong>Disks</strong><br><small class="text-muted">size sweep (vanishing)</small></div>
+          </a>
         </div>
       </div>
       <div class="col">
         <div class="card mb-3 rounded-3 shadow-sm">
-          <div class="card-body">
-            <img class="col-sm-12" src="images/FigBars.png" alt="sans"/>
-          </div>
+          <a class="card-body text-decoration-none text-reset" href="gratings.html?stimulus=bars" title="Square-wave bars">
+            <img class="col-sm-12" src="images/FigBars.png" alt="Bars"/>
+            <div class="mt-2"><strong>Bars</strong><br><small class="text-muted">square-wave stripes</small></div>
+          </a>
         </div>
       </div>
       <div class="col">
         <div class="card mb-3 rounded-3 shadow-sm">
-          <div class="card-body">
-            <img class="col-sm-12" src="images/FigGratings.png" alt="sans"/>
-          </div>
+          <a class="card-body text-decoration-none text-reset" href="gratings.html?stimulus=sinusoids" title="Sinusoidal gratings">
+            <img class="col-sm-12" src="images/FigGratings.png" alt="Sinusoidal gratings"/>
+            <div class="mt-2"><strong>Sinusoids</strong><br><small class="text-muted">sinusoidal gratings</small></div>
+          </a>
         </div>
       </div>
     </div>
