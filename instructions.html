@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jason Turuwhenua">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Stimulus display instructions</title>
+
+<!--
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/starter-template/">
+    -->
+
+    <link href="bootstrap/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+
+  
+    .list-side-by-side {
+      width: 100%;
+
+      dt {
+        float: left;
+        margin-right: 10%;
+        max-width: 40%;
+        font-weight: bold;
+      }
+      
+      dd {
+        color: grey;
+        margin-left: 40%;
+        margin-bottom: .5em;
+      }
+      
+      dd::after {
+        content: " ";
+        display: block;
+        clear: left;
+      }  
+    }
+
+
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<div class="col-lg-8 mx-auto p-4 py-md-5">
+  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+      <span class="fs-4">Eye Health & Diagnostics Group</span>
+    </a>
+  </header>
+
+  <main>
+<h2 class="mb-4">Stimulus display instructions</h2>
+
+<h4>Using the displays</h4>
+<ol>
+  <li>Open <a href="gratings.html">the gratings display</a> (or the <a href="preferential.html">moving Gabor patch</a>) in <a href="https://www.google.com/chrome/">Chrome</a>.</li>
+  <li>Press <b>Press here to enter experiment</b>. The page goes full screen and the stimulus starts, with the controller at the top right.</li>
+  <li>Set the <b>Display Options</b> (below) first, so sizes and speeds are in true degrees at your viewing distance.</li>
+  <li>Change the stimulus and its parameters with the controller. Changes apply when you release a control.</li>
+  <li>Press <b>Esc</b> to leave full screen.</li>
+</ol>
+<p>A link can choose the stimulus directly: <code>gratings.html?stimulus=disks|bars|sinusoids</code>, and for disks <code>&amp;sweep=1</code> or <code>&amp;sweep=0</code>.</p>
+
+<h4>Controller Options</h4>
+
+<p>The control panel has the following options:</p>
+
+
+<!-- code list -->
+<div class="list-side-by-side">
+<dl>
+   <br></br>
+    Main
+    <hr>
+    <dt>Stimulus</dt><dd>[ <i>default: disks </i> ] Stimulus choices <i>e.g.</i>  "disks" | "bars" | "sinusoids"  </dd>
+    <dt>logMAR</dt><dd>[ <i>default: 1.0 logMAR</i> ] logMAR specification is: 1) <i>disks</i>: angular size of central disk, 2) <i>bars</i>: stripe width, 3) <i>sinusoids</i>: wavelength/2</dd>
+    <dt>Speed</dt><dd>[ <i>default: 2.5 deg&#x2F;sec</i> ] Horizontal drift speed for stimulus </dd>
+    <dt>Direction</dt><dd>[ <i>default: left </i> ] Horizontal drift direction. </dd>
+    <dt>Distance</dt><dd>[ <i>default: 100 cm</i> ] Distance of the observer from the display</dd>
+    <dt>Sweep</dt><dd>[ <i>default: true </i> ] Only visible when stimulus is "disks". Overrides  the "logMAR" controller when enabled.</dd>
+   <br></br>
+    Sweep 
+    <hr>
+       Only visible when stimulus is &quot;disks&quot;. 
+      <br></br>
+    <dt>Step Duration</dt><dd>[ <i>default: 0.5 sec</i> ] Time spent per logMAR level</dd>
+    <dt>Step Size</dt><dd>[ <i>fixed: 0.1 logMAR</i> ] Size of each step (not in the controller)</dd>
+   <br></br>
+    Stimulus Specific Options
+    <hr>
+    <i>Disks</i>
+    <dt>Ratio</dt><dd>[ <i>default: 1:2 </i> ] Disk center:surround diameter ratio.</dd>
+    <dt>Central Intensity</dt><dd>[ <i>default: 0.75 </i> ] Central disk intensity (normalized pixel intensity)</dd>
+    <dt>Surround Intensity</dt><dd>[ <i>default: 0.45 </i> ] Surround disk intensity (normalized pixel intensity)</dd>
+    <dt>Spacing</dt><dd>[ <i>default: 2 deg </i> ] Angular distance between disks</dd>
+    <i>Bars&#x2F;Sinusoids</i>
+    <dt>Contrast</dt><dd>[ <i>default: 1 </i> ] Michelson contrast</dd>
+   <br></br>
+    Display Options
+    <hr>
+    <dt>Height (cm)</dt><dd>[ <i>default: 21 cm</i> ] Physical screen height</dd>
+    <dt>Width (cm)</dt><dd>[ <i>default: 32.5 cm</i> ] Physical screen width</dd>
+    <dt>Height (px)</dt><dd>[ <i>default: screen.height px</i> ] Screen height in logical pixels</dd>
+    <dt>Width (px)</dt><dd>[ <i>default: screen.width px</i> ] Screen width in logical pixels</dd>
+    <dt>Device Pixel Ratio</dt><dd>[ <i>default: 1 </i> ] Conversion from logical to physical pixels</dd>
+</dl>
+</div>
+
+<hr>
+<h4>Tips</h4>
+<ul>
+  <li>The demonstrations work best in Chrome.</li>
+  <li>Motion artefacts (comet tails) are typical on LED monitors; <a href="https://blurbusters.com">blur reduction</a> helps. We have used nVidia Ultra Low Motion Blur (ULMB), and a high refresh rate OLED tablet gave artefact-free motion.</li>
+  <li><a href="https://screenresolutiontest.com">screenresolutiontest.com</a> reports a screen's pixel size.</li>
+</ul>
+<p><a href="index.html">&larr; Back to the demonstrations</a></p>
+</main>
+<footer class="pt-5 my-5 text-muted border-top">
+    Created by EHDG team &middot; &copy; 2023
+</footer>
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      
+  </body>
+</html>

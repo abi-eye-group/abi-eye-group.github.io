@@ -76,7 +76,7 @@ $(document).ready( function () {
     /* SETUP START BUTTON */ 
 
     $('#start-button').click( function(e) {       
-        $(this).hide();		
+        $(this).hide(); $("#instructions-link").hide();		
         openFullscreen ();
         
 
@@ -267,6 +267,7 @@ $(document).ready( function () {
 
 
 <button id="start-button" type="button" class="btn btn-light btn-lg btn-block align">Press here to enter experiment</button>
+<p id="instructions-link" style="position:fixed; top:14px; left:0; right:0; text-align:center; font-size:1.1rem; margin:0;"><a href="instructions.html" style="color:#fff; text-decoration:underline;">Instructions</a></p>
 
 <div id="experiment">
 </div>

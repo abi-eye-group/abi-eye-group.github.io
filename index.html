@@ -135,6 +135,14 @@
           </a>
         </div>
       </div>
+      <div class="col">
+        <div class="card mb-3 rounded-3 shadow-sm">
+          <a class="card-body text-decoration-none text-reset" href="preferential.html" title="Moving Gabor patch">
+            <img class="col-sm-12" src="images/FigGabors.png" alt="A Gabor patch"/>
+            <div class="mt-2"><strong>Moving Gabors</strong><br><small class="text-muted">jumping and sweeping</small></div>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Digital image demonstrations (hosted with the optometry teaching material) -->
@@ -176,57 +184,13 @@
 
     <p>
     Press <a href="gratings.html">here</a> to open the demo in full screen mode. 
-    There is also a <a href="preferential.html">moving Gabor patch</a> demonstration (it jumps between positions or sweeps across the screen).
-    See the <a href="https://github.com/abi-eye-group/abi-eye-group.github.io#readme">README</a> (or <a href="README.txt">README.txt</a>) for instructions.
+    
+    See the <a href="instructions.html">instructions</a> for how to use the displays and what each control does.
     </p>
     <p>We recommend the  <a href="https://www.google.com/chrome/">Chrome</a> browser.</p>
 <hr>
-
-
-<h4>Controller Options</h4>
-
-<p>The control panel has the following options:</p>
-
-
-<!-- code list -->
-<div class="list-side-by-side">
-<dl>
-   <br></br>
-    Main
-    <hr>
-    <dt>Stimulus</dt><dd>[ <i>default: disks </i> ] Stimulus choices <i>e.g.</i>  "disks" | "bars" | "sinusoids"  </dd>
-    <dt>logMAR</dt><dd>[ <i>default: 1.0 logMAR</i> ] logMAR specification is: 1) <i>disks</i>: angular size of central disk, 2) <i>bars</i>: stripe width, 3) <i>sinusoids</i>: wavelength/2</dd>
-    <dt>Speed</dt><dd>[ <i>default: 5.0 deg&#x2F;sec</i> ] Horizontal drift speed for stimulus </dd>
-    <dt>Direction</dt><dd>[ <i>default: left </i> ] Horizontal drift direction. </dd>
-    <dt>Distance</dt><dd>[ <i>default: 100 cm</i> ] Distance of pbserver from display</dd>
-    <dt>Sweep</dt><dd>[ <i>default: true </i> ] Only visible when stimulus is "disks". Overrides  the "logMAR" controller when enabled.</dd>
-   <br></br>
-    Sweep 
-    <hr>
-       Only visible when stimulus is &quot;disks&quot;. 
-      <br></br>
-    <dt>Step Duration</dt><dd>[ <i>default: 1.0 sec</i> ] Time spent per logMAR level</dd>
-    <dt>Step Size</dt><dd>[ <i>default: 0.1 logMAR</i> ] Step Size</dd>
-   <br></br>
-    Stimulus Specific Options
-    <hr>
-    <i>Disks</i>
-    <dt>Ratio</dt><dd>[ <i>default: 1:2 </i> ] Disk center:surround diameter ratio.</dd>
-    <dt>Central Intensity</dt><dd>[ <i>default: 0.75 </i> ] Central disk intensity (normalized pixel intensity)</dd>
-    <dt>Surround Intensity</dt><dd>[ <i>default: 0.45 </i> ] Surround disk intensity (normalized pixel intensity)</dd>
-    <dt>Spacing</dt><dd>[ <i>default: 2 deg </i> ] Angular distance between disks</dd>
-    <i>Bars&#x2F;Sinusoids</i>
-    <dt>Contrast</dt><dd>[ <i>default: 1 </i> ] Michelson contrast</dd>
-   <br></br>
-    Display Options
-    <hr>
-    <dt>Height (cm)</dt><dd>[ <i>default:  cm</i> ] Physical screen height</dd>
-    <dt>Width (cm)</dt><dd>[ <i>default:  cm</i> ] Physical screen width</dd>
-    <dt>Height (px)</dt><dd>[ <i>default: screen.width px</i> ] Screen height in logical pixels</dd>
-    <dt>Width (px)</dt><dd>[ <i>default: screen.width px</i> ] Screen width in logcial pixels</dd>
-    <dt>Device Pixel Ratio</dt><dd>[ <i>default: 1 </i> ] Conversion from logical to physical pixels</dd>
-</dl>
-</div>
+<p>Instructions for the stimulus displays, including every controller option, are in the
+<a href="instructions.html">instructions</a>.</p>
 </main>
 <footer class="pt-5 my-5 text-muted border-top">
     Created by EHDG team &middot; &copy; 2023
