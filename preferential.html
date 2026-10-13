@@ -29,6 +29,7 @@
 
   <script type="text/javascript" src="js/dat.gui.min.js"></script>
   <script type="text/javascript" src="js/stimulus.js"></script>
+  <script type="text/javascript" src="js/calibration.js"></script>
   <script type="text/javascript" src="js/preferential.js"></script>
   <script type="text/javascript" src="js/Logger.js"></script>
 
@@ -61,6 +62,10 @@
 <script>
 
 $(document).ready( function () {
+    // optional screen calibration (a credit card held to the screen); remembered in the browser
+    StimulusCalibration.apply(parameters.display);
+    StimulusCalibration.mount(document.getElementById("calibration-host"));
+
 
 	  //Logger.open();
 	  Logger.hide ();
@@ -68,7 +73,7 @@ $(document).ready( function () {
     /* SETUP START BUTTON */ 
 
     $('#start-button').click( function(e) {       
-        $(this).hide();		
+        $(this).hide(); $("#calibration-panel").hide();		
         openFullscreen ();
         
 
@@ -122,7 +127,7 @@ $(document).ready( function () {
 
                    
 
-                  $("#start-button").show ();
+                  $("#start-button").show (); $("#calibration-panel").show();
 
                });
 
@@ -137,6 +142,7 @@ $(document).ready( function () {
 
 
 <button id="start-button" type="button" class="btn btn-light btn-lg btn-block align">Press here to enter experiment</button>
+<div id="calibration-host"></div>
 
 <div id="experiment">
 </div>

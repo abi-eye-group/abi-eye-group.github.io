@@ -22,10 +22,11 @@ Eye Health & Diagnostics Group, Auckland Bioengineering Institute, University of
 ## How to use the stimulus demonstrations
 
 1. Open the page (for example `gratings.html`) in **Chrome**.
-2. **Press "Press here to enter experiment".** The page goes full screen and the stimulus starts, with the controller at the top right.
-3. **Set up the display first** (see *Display options* below) so sizes and speeds are in true degrees at your viewing distance.
-4. Change the stimulus and its parameters with the controller. Changes apply as you release a control.
-5. Press **Esc** to leave full screen. The start button returns.
+2. **Calibrate the screen (optional).** On the start screen press *Calibrate with a credit card*, hold a card flat against the screen and match the rectangle to it. The result is remembered in the browser. *Skip* (or `?calibrate=0`) uses the Display Options as they are.
+3. **Press "Press here to enter experiment".** The page goes full screen and the stimulus starts, with the controller at the top right.
+4. **Check the Display Options** (below) if you have not calibrated, so sizes and speeds are in true degrees at your viewing distance.
+5. Change the stimulus and its parameters with the controller. Changes apply as you release a control.
+6. Press **Esc** to leave full screen. The start button returns.
 
 A link can choose the demonstration directly: `gratings.html?stimulus=disks|bars|sinusoids` and, for disks, `&sweep=1` or `&sweep=0`.
 

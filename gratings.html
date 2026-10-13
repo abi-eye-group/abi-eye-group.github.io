@@ -29,6 +29,7 @@
 
   <script type="text/javascript" src="js/dat.gui.min.js"></script>
   <script type="text/javascript" src="js/stimulus.js"></script>
+  <script type="text/javascript" src="js/calibration.js"></script>
   <script type="text/javascript" src="js/gratings.js"></script>
   <script type="text/javascript" src="js/Logger.js"></script>
 
@@ -69,6 +70,10 @@
 <script>
 
 $(document).ready( function () {
+    // optional screen calibration (a credit card held to the screen); remembered in the browser
+    StimulusCalibration.apply(display);
+    StimulusCalibration.mount(document.getElementById("calibration-host"));
+
 
 	  Logger.open();
 	  Logger.hide ();
@@ -76,7 +81,7 @@ $(document).ready( function () {
     /* SETUP START BUTTON */ 
 
     $('#start-button').click( function(e) {       
-        $(this).hide(); $("#instructions-link").hide();		
+        $(this).hide(); $("#instructions-link").hide(); $("#calibration-panel").hide();		
         openFullscreen ();
         
 
@@ -251,7 +256,7 @@ $(document).ready( function () {
                   clearTimeout (sweepTimeoutID);
                 
                   
-                  $("#start-button").show ();
+                  $("#start-button").show (); $("#calibration-panel").show();
                   location.reload(true);
 
                });
@@ -267,6 +272,7 @@ $(document).ready( function () {
 
 
 <button id="start-button" type="button" class="btn btn-light btn-lg btn-block align">Press here to enter experiment</button>
+<div id="calibration-host"></div>
 <p id="instructions-link" style="position:fixed; top:14px; left:0; right:0; text-align:center; font-size:1.1rem; margin:0;"><a href="instructions.html" style="color:#fff; text-decoration:underline;">Instructions</a></p>
 
 <div id="experiment">
