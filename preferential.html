@@ -64,7 +64,7 @@
 $(document).ready( function () {
     // optional screen calibration (a credit card held to the screen); remembered in the browser
     StimulusCalibration.apply(parameters.display);
-    StimulusCalibration.mount(document.getElementById("calibration-host"));
+    StimulusCalibration.mount(document.getElementById("calibration-host"), { display: parameters.display, start: function () { $("#start-button").click(); } });
 
 
 	  //Logger.open();
@@ -73,7 +73,7 @@ $(document).ready( function () {
     /* SETUP START BUTTON */ 
 
     $('#start-button').click( function(e) {       
-        $(this).hide(); $("#calibration-panel").hide();		
+        $(this).hide();		
         openFullscreen ();
         
 
@@ -127,7 +127,7 @@ $(document).ready( function () {
 
                    
 
-                  $("#start-button").show (); $("#calibration-panel").show();
+                  $("#start-button").show (); StimulusCalibration.showEntry();
 
                });
 
