@@ -84,6 +84,19 @@ function destroyMenu () {
 }
     
 
+/* logMAR and spatial frequency are two ways of giving the same size for bars and sinusoids: a stripe of the logMAR
+   size has a wavelength of twice that (a cycle is a light and a dark stripe), so  f (cpd) = 1 / (2 * size in deg),
+   size in deg = 10^logMAR / 60  ->  f = 30 / 10^logMAR.  Changing either one sets the other. */
+
+function logMAR2cpd (logMAR) { return 30 / Math.pow(10, logMAR); }
+function cpd2logMAR (cpd)    { return Math.log10(30 / cpd); }
+
+function syncFrequencyFromLogMAR () {
+	let f = Math.round(logMAR2cpd(parameters.logMAR) * 1000) / 1000;
+	parameters.sinusoids.frequency = f;
+	parameters.bars.frequency      = f;
+}
+
 function buildMenu (callback) {
 
   if (gui)	{
@@ -97,7 +110,8 @@ function buildMenu (callback) {
   gui   = new dat.GUI({ width: 350} );
 
   gui.add(parameters, 'stimulus_type', 	[ 'sinusoids', 'bars', 'disks' ] ).name('Stimulus').onFinishChange(callback);
-  gui.add(parameters, 'logMAR',     	  0.0, 2.0, 0.1).name('logMAR').onFinishChange(callback).listen();
+  syncFrequencyFromLogMAR();                               // (the frequency shown always agrees with the logMAR)
+  gui.add(parameters, 'logMAR',     	  0.0, 2.0, 0.1).name('logMAR').onChange(syncFrequencyFromLogMAR).onFinishChange(callback).listen();
   gui.add(parameters, 'speed', 					0.0, 15.0).name('Speed (deg/s)').onFinishChange(callback);
   gui.add(parameters, 'direction', 			[ 'left', 'right' ]).name('Direction').onFinishChange(callback);
   gui.add(display, 	  'distance', 			[ 50, 70, 100, 150, 300 ] ).name('Distance (cm)').onFinishChange(callback);
@@ -152,7 +166,9 @@ function buildMenu (callback) {
 	  	case "sinusoids":
 
  				options.add(parameters.sinusoids, 'contrast',  0.0, 1.0).name('Contrast').onFinishChange(callback);
-				options.add(parameters.sinusoids, 'frequency',  0.0, 15).name('Freq.(cpd)').onFinishChange(callback);
+				options.add(parameters.sinusoids, 'frequency',  0.3, 30, 0.1).name('Freq.(cpd)')
+					.onChange(function (f) { parameters.logMAR = Math.max(0.0, Math.min(2.0, cpd2logMAR(f))); parameters.bars.frequency = f; })
+					.onFinishChange(callback).listen();
 		  	break;
 
 
