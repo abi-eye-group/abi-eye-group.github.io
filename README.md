@@ -96,7 +96,7 @@ Tip: [screenresolutiontest.com](https://screenresolutiontest.com) reports the sc
 
 ## Digital image demonstrations
 
-Linked from the index page and hosted at <https://sovs-uoa.github.io/digital-labs/>:
+Linked from the index page and hosted at <https://sovs-uoa.github.io/demo/>:
 
 * **Gabor patch explorer**: set frequency, orientation, phase, envelope and position, and see the amplitude spectrum.
 * **Magnitude and phase**: one co-sinusoid described by cosine and sine weights (R, I) or by magnitude and phase.
